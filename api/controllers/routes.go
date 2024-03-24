@@ -6,5 +6,6 @@ func (s *Server) initializeRoutes() {
 
 	// Home Route
 	s.Router.HandleFunc("/", middlewares.SetMiddlewareJSON(s.Home)).Methods("GET")
+
 	s.Router.HandleFunc("/users/{id}", middlewares.SetMiddlewareJSON(s.GetMahasiswa)).Methods("GET")
 }
