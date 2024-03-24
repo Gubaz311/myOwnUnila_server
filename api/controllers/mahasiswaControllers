@@ -1,0 +1,27 @@
+package controllers
+
+import (
+	"net/http"
+	"strconv"
+
+	"github.com/Gubaz311/myOwnUnila_server/api/models"
+	"github.com/Gubaz311/myOwnUnila_server/api/utils"
+	"github.com/gorilla/mux"
+)
+
+func (server *Server) GetMahasiswa(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	uid, err := strconv.ParseUint(vars["id"], 10, 32)
+	if err != nil {
+		utils.ERROR(w, http.StatusBadRequest, err)
+		return
+	}
+	user := models.Mahasiswa{}
+	userGotten, err := user.FindMahasiswaByNPM(server.DB, uint32(uid))
+	if err != nil {
+		utils.ERROR(w, http.StatusBadRequest, err)
+		return
+	}
+	utils.JSON(w, http.StatusOK, userGotten)
+}
