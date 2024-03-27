@@ -7,7 +7,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func connect() {
+func Connect() {
 	var err error
 	err = godotenv.Load()
 	if err != nil {
@@ -15,5 +15,4 @@ func connect() {
 	} else {
 		fmt.Println("We are getting the env values")
 	}
-
 }
