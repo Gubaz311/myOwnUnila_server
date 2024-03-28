@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/jinzhu/gorm"
+)
 
 type Mahasiswa struct {
 	NPM          uint32     `gorm:"primaryKey" json:"npm"`
@@ -13,4 +17,13 @@ type Mahasiswa struct {
 	GpaSemester2 float64    `gorm:"column:gpaSemester2" json:"gpaSemester2"`
 	GpaSemester3 float64    `gorm:"column:gpaSemester3" json:"gpaSemester3"`
 	GpaSemester4 float64    `gorm:"column:gpaSemester4" json:"gpaSemester4"`
+}
+
+func (m *Mahasiswa) GetAllData(db *gorm.DB, tahunAwal, tahunAkhir int) (*[]Mahasiswa, error) {
+	data := []Mahasiswa{}
+	err := db.Where("YEAR(tglMasuk) BETWEEN ? AND ?", tahunAwal, tahunAkhir).Find(&data).Error
+	if err != nil {
+		return nil, err
+	}
+	return &data, nil
 }

@@ -27,6 +27,8 @@ func (server *Server) Start(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName
 	}
 
 	server.Router = mux.NewRouter()
+
+	server.StartApi()
 }
 
 func (server *Server) Info(addr string) {
