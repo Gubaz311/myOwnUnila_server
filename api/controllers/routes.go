@@ -1,6 +1,10 @@
 package controllers
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/Gubaz311/myOwnUnila_server/api/middleware"
+)
 
 func (s *Server) StartApi() {
 
@@ -9,7 +13,7 @@ func (s *Server) StartApi() {
 	}
 
 	//home -> send data info that api is online
-	s.Router.HandleFunc("/", HandlerIndex)
+	s.Router.HandleFunc("/", middleware.Jsonheader(s.Home)).Methods("GET")
 
 	//feb for get data from feb table
 	s.Router.HandleFunc("/feb", HandlerIndex)
