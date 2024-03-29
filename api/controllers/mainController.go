@@ -8,7 +8,8 @@ import (
 	"github.com/Gubaz311/myOwnUnila_server/api/models"
 )
 
-func (s *Server) GetAllMahasiswa(w http.ResponseWriter, r *http.Request) {
+// Get all data from all tables
+func (server *Server) GetAllMahasiswa(w http.ResponseWriter, r *http.Request) {
 	tahunAwal, err := strconv.Atoi(r.URL.Query().Get("tahun_awal"))
 	if err != nil {
 		middleware.Jsoncontenterror(w, http.StatusInternalServerError, err)
@@ -20,8 +21,9 @@ func (s *Server) GetAllMahasiswa(w http.ResponseWriter, r *http.Request) {
 		middleware.Jsoncontenterror(w, http.StatusInternalServerError, err)
 		return
 	}
-
-	data, err := models.GetAllData(tahunAwal, tahunAkhir)
+	db := server.DB
+	mahasiswa := models.Mahasiswa{}
+	data, err := mahasiswa.GetAllData(db, tahunAwal, tahunAkhir)
 
 	if err != nil {
 		middleware.Jsoncontenterror(w, http.StatusInternalServerError, err)

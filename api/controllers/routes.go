@@ -40,5 +40,5 @@ func (s *Server) StartApi() {
 	s.Router.HandleFunc("/ft", HandlerIndex)
 
 	//all for get data from all table
-	s.Router.HandleFunc("/all", HandlerIndex)
+	s.Router.HandleFunc("/{tahun_awal}/{tahun_akhir}", middleware.Jsonheader(s.GetAllMahasiswa)).Methods("GET")
 }
