@@ -30,5 +30,5 @@ func Jsoncontenterror(w http.ResponseWriter, statusCode int, err error) {
 		})
 		return
 	}
-	Jsoncontent(w, http.StatusBadRequest, nil)
+	w.WriteHeader(statusCode)
 }
