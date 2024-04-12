@@ -9,6 +9,11 @@ import (
 func Jsonheader(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
+
+		//Allow origin dari semua sumber
+		// Hapus jika sudah tidak digunakan
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+
 		next(w, r)
 	}
 }
