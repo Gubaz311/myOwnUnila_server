@@ -1,7 +1,7 @@
 package models
 
 type Fakultas struct {
-	ID           int    `gorm:"column:id" json:"id"`
+	ID           int    `gorm:"primaryKey;column:id" json:"id"`
 	NamaFakultas string `gorm:"column:namaFakultas" json:"namaFakultas"`
 }
 

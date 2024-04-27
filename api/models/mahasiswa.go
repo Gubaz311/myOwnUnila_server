@@ -28,7 +28,8 @@ func (Mahasiswa) TableName() string {
 func (m *Mahasiswa) GetDataByRange(db *gorm.DB, tahunAwal, tahunAkhir, fakultasID uint64) (*[]Mahasiswa, error) {
 	// return &mahasiswa, nil
 	var mahasiswa []Mahasiswa
-	data := db.Debug().Model(&Mahasiswa{}).Where("EXTRACT(YEAR FROM tglmasuk) BETWEEN ? AND ?", tahunAwal, tahunAkhir)
+	// data := db.Debug().Model(&Mahasiswa{}).Where("EXTRACT(YEAR FROM tglmasuk) BETWEEN ? AND ?", tahunAwal, tahunAkhir)
+	data := db.Debug().Preload("Fakultas").Model(&Mahasiswa{}).Where("EXTRACT(YEAR FROM tglmasuk) BETWEEN ? AND ?", tahunAwal, tahunAkhir)
 
 	if fakultasID != 0 {
 		data = data.Where("fakultasID = ?", fakultasID)
@@ -46,7 +47,7 @@ func (m *Mahasiswa) GetDataLulus(db *gorm.DB, tahunAwal, tahunAkhir, fakultasID 
 	// return &mahasiswa, nil
 	var mahasiswa []Mahasiswa
 	// data := db.Debug().Model(&Mahasiswa{}).Where("EXTRACT(YEAR FROM tglmasuk) BETWEEN ? AND ? AND tglkeluar IS NOT NULL", tahunAwal, tahunAkhir)
-	data := db.Debug().Model(&Mahasiswa{}).
+	data := db.Debug().Preload("Fakultas").Model(&Mahasiswa{}).
 		Where("EXTRACT(YEAR FROM tglmasuk) BETWEEN ? AND ? ", tahunAwal, tahunAkhir).
 		Where("tglKeluar IS NOT NULL")
 
