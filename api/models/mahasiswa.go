@@ -17,6 +17,7 @@ type Mahasiswa struct {
 	GpaSemester2 float64    `gorm:"column:gpaSemester2" json:"gpaSemester2"`
 	GpaSemester3 float64    `gorm:"column:gpaSemester3" json:"gpaSemester3"`
 	GpaSemester4 float64    `gorm:"column:gpaSemester4" json:"gpaSemester4"`
+	JenisKelamin string     `gorm:"column:jenisKelamin" json:"jenisKelamin"`
 	FakultasID   int        `gorm:"column:fakultasid" json:"fakultasID"`
 	Fakultas     Fakultas   `gorm:"foreignKey:FakultasID" json:"fakultas"`
 }
